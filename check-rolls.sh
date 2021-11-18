@@ -7,7 +7,7 @@ today=`date +%Y-%m-%d.%H:%M:%S`
 cd /root/massa/massa-client/ && ./massa-client wallet_info; cd
 
 if [[ ${rolls[*]} =~ 0 ]]
-    then echo 'Срочно нужно купить роллы!'
+    then echo 'Срочно нужно купить роллы!' >>  rolls.log
     cd /root/massa/massa-client/ && ./massa-client buy_rolls $wallet; cd
 
 else
