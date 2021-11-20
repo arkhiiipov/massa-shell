@@ -6,4 +6,5 @@
 
 git clone ....
 chmod a+x check-rolls.sh
+crontab -e
 */30  * * * * cd /root/ && ./check-rolls.sh
