@@ -1,15 +1,16 @@
 #!/bin/bash
 
-wallet=" 1 0"
-rolls="Active rolls"
+wallet="25....."
+
 today=`date +%Y-%m-%d.%H:%M:%S`
 
-cd /root/massa/massa-client/ && ./massa-client wallet_info; cd
+rolls=$(echo `cd /root/massa/massa-client/ && ./massa-client wallet_info | grep rolls | awk '{print $3}'; cd`)
 
-if [[ ${rolls[*]} =~ 0 ]]
-    then echo 'Срочно нужно купить роллы!' >>  rolls.log
-    cd /root/massa/massa-client/ && ./massa-client buy_rolls $wallet; cd
-
+IFS=' ' read -a roll <<< $rolls
+if [ "${roll[0]}" = "0" ] && [ "${roll[1]}" = "0" ] && [ "${roll[2]}" = "0" ] ;then
+    cd /root/massa/massa-client/ && ./massa-client buy_rolls $wallet 1 0; cd
+    echo $today' Куплен 1 roll!' >>  rolls.log
 else
-    echo $today 'Роллы на месте! Можно спать спокойно!' >>  rolls.log
+    echo "ok"
 fi
+
